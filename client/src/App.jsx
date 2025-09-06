@@ -20,11 +20,15 @@ import ParentTeacherDashboard from './pages/ParentTeacherDashboard'
 import Footer from './components/Footer'
 import { Toaster } from 'react-hot-toast'
 import { Route, Router, Routes } from 'react-router-dom'
+import Login from './pages/Login'
 
 const App = () => {
 
+  const [userData, setUserData] = useState('');
 
-  return (
+
+
+  return userData ? (
     <>
       <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-emerald-50 flex flex-col">
         <Header />
@@ -55,6 +59,10 @@ const App = () => {
         <Toaster position="bottom-center" />
       </div>
     </>
+  )
+  :
+  (
+    <Login userData={userData} setUserData={setUserData} />
   )
 }
 

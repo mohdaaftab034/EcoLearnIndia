@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import {
@@ -26,6 +26,7 @@ const Header = () => {
   const location = useLocation()
   const { user } = useStore()
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   const mainNavItems = [
     { path: '/', label: t('dashboard'), icon: '🏠' },
@@ -108,8 +109,8 @@ const Header = () => {
 
           {/* User Profile & Language Switcher */}
           {open && <div className='absolute flex flex-col items-start justify-center mt-[150px] right-40 bg-white w-40 h-20 shadow-md rounded-lg gap-2 '>
-            <button className='flex cursor-pointer gap-2 ml-3 font-medium justify-center items-center'><User2 className='h-4 w-4'/> Profile</button>
-            <button className='flex cursor-pointer gap-2 ml-3 font-medium justify-center items-center'><LogOut className='h-4 w-4'/> Logout</button>
+            <button onClick={()=> {navigate('/profile'); setOpen(false)}} className='flex cursor-pointer gap-2 ml-3 font-medium justify-center items-center'><User2 className='h-4 w-4'/> Profile</button>
+            <button className='flex cursor-pointer gap-2 ml-3 text-red-500 font-medium justify-center items-center'><LogOut className='h-4 w-4'/> Logout</button>
           </div>}
 
           <div className="hidden cursor-pointer lg:flex items-center space-x-4">
@@ -121,7 +122,7 @@ const Header = () => {
                 <p className="text-xs text-gray-500">{user?.points} {t('points')} • {t('level')} {user?.level}</p>
               </div>
               <Link>
-                <img onClick={()=> setOpen(true)} 
+                <img onClick={() => setOpen(prev => !prev)} 
                   src={user?.avatar}
                   alt={user?.name}
                   className="w-10 h-10 rounded-full border-2 border-green-300"

@@ -142,7 +142,8 @@ const AdminDashboard = () => {
         animate={{ opacity: 1, y: 0 }}
         className="mb-8"
       >
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Admin Dashboard</h1>
+        <button className="text-black px-2 bg-green-500 rounded-full absolute right-20  ">Logout</button>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Teacher Dashboard</h1>
         <p className="text-gray-600">
           Manage lessons, challenges, and monitor platform analytics
         </p>

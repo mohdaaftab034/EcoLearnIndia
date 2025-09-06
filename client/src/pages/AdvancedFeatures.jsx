@@ -2,7 +2,8 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
-import { Sparkles, Bot, Share2, Calendar, Gamepad2, GraduationCap, MapPin, Brain, Trophy, Users2, Globe, Zap } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { Sparkles, Bot, Share2, Calendar, Gamepad2, GraduationCap, MapPin, Brain, Trophy, Users2, Globe, Zap, UserPlus } from 'lucide-react'
 import SeasonalChallenges from '../components/SeasonalChallenges'
 import VirtualSimulation from '../components/VirtualSimulation'
 import SocialShare from '../components/SocialShare'
@@ -15,6 +16,7 @@ import LanguageSwitcher from '../components/LanguageSwitcher'
 
 const AdvancedFeatures = () => {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState('location-aware')
   const [showShareModal, setShowShareModal] = useState(false)
 
@@ -60,7 +62,8 @@ const AdvancedFeatures = () => {
       icon: <GraduationCap className="w-5 h-5" />,
       description: 'Educational materials & lesson plans',
       component: TeacherHub
-    }
+    },
+   
   ]
 
   const sampleAchievement = {
@@ -125,30 +128,36 @@ const AdvancedFeatures = () => {
             {tabs.map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`p-4 rounded-xl text-left transition-all duration-300 ${activeTab === tab.id
+                onClick={() => {
+                  if (tab.isNavigation) {
+                    navigate(tab.path);
+                  } else {
+                    setActiveTab(tab.id);
+                  }
+                }}
+                className={`p-4 rounded-xl text-left transition-all duration-300 ${activeTab === tab.id && !tab.isNavigation
                     ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg transform scale-105'
                     : 'bg-gray-50 border-2 border-transparent hover:bg-gray-100 hover:border-green-200'
                   }`}
               >
                 <div className="flex items-center space-x-3 mb-2">
-                  <div className={`p-2 rounded-lg ${activeTab === tab.id ? 'bg-white bg-opacity-20' : 'bg-gray-200'
+                  <div className={`p-2 rounded-lg ${activeTab === tab.id && !tab.isNavigation ? 'bg-white bg-opacity-20' : 'bg-gray-200'
                     }`}>
-                    <div className={activeTab === tab.id ? 'text-white' : 'text-gray-600'}>
-                      {tab.icon}
-                    </div>
+                  <div className={activeTab === tab.id && !tab.isNavigation ? 'text-white' : 'text-gray-600'}>
+                    {tab.icon}
                   </div>
-                  <h3 className={`font-bold ${activeTab === tab.id ? 'text-white' : 'text-gray-900'
-                    }`}>
-                    {tab.name}
-                  </h3>
                 </div>
-                <p className={`text-sm ${activeTab === tab.id ? 'text-green-100' : 'text-gray-600'
+                <h3 className={`font-bold ${activeTab === tab.id && !tab.isNavigation ? 'text-white' : 'text-gray-900'
                   }`}>
-                  {tab.description}
-                </p>
-              </button>
-            ))}
+                  {tab.name}
+                </h3>
+              </div>
+              <p className={`text-sm ${activeTab === tab.id && !tab.isNavigation ? 'text-green-100' : 'text-gray-600'
+                }`}>
+                {tab.description}
+              </p>
+            </button>
+          ))}
           </div>
         </div>
       </motion.div>

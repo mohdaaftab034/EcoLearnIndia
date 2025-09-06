@@ -17,18 +17,16 @@ import EnvironmentalNews from './pages/EnvironmentalNews'
 import EcoClubs from './pages/EcoClubs'
 import AIRecommendations from './pages/AIRecommendations'
 import ParentTeacherDashboard from './pages/ParentTeacherDashboard'
+import TeacherSignup from './pages/TeacherSignup'
+import TeacherLogin from './pages/TeacherLogin'
 import Footer from './components/Footer'
 import { Toaster } from 'react-hot-toast'
 import { Route, Router, Routes } from 'react-router-dom'
-import Login from './pages/Login'
 
 const App = () => {
 
-  const [userData, setUserData] = useState('');
 
-
-
-  return userData ? (
+  return (
     <>
       <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-emerald-50 flex flex-col">
         <Header />
@@ -43,26 +41,27 @@ const App = () => {
             <Route path="/community" element={<Community />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/admin" element={<AdminDashboard />} />
+             <Route path="/teacher-signup" element={<TeacherSignup />} />
+             <Route path="/teacher-Login" element={<TeacherLogin />} />
+
 
             {/* Advanced Features */}
             <Route path="/advanced" element={<AdvancedFeatures />} />
             <Route path="/ar-scanner" element={<ARScanner />} />
             <Route path="/activities" element={<RealWorldActivities />} />
             <Route path="/partnerships" element={<Partnerships />} />
+             
             <Route path="/news" element={<EnvironmentalNews />} />
             <Route path="/eco-clubs" element={<EcoClubs />} />
             <Route path="/recommendations" element={<AIRecommendations />} />
             <Route path="/dashboard/parent-teacher" element={<ParentTeacherDashboard />} />
+           
           </Routes>
         </main>
         <Footer />
         <Toaster position="bottom-center" />
       </div>
     </>
-  )
-  :
-  (
-    <Login userData={userData} setUserData={setUserData} />
   )
 }
 

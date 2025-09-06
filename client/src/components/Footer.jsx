@@ -58,11 +58,11 @@ const Footer = () => {
                   Community
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/admin" className="text-gray-300 hover:text-green-400 transition-colors text-sm">
                   Admin Dashboard
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
 

@@ -122,7 +122,7 @@ const Header = () => {
                 <p className="text-xs text-gray-500">{user?.points} {t('points')} • {t('level')} {user?.level}</p>
               </div>
               <Link>
-                <img onClick={() => setOpen(prev => !prev)} 
+                <img  
                   src={user?.avatar}
                   alt={user?.name}
                   className="w-10 h-10 rounded-full border-2 border-green-300"
